@@ -4,6 +4,7 @@ module s_aes_top (
     output wire c
 );
     // simple xor 
+    //test
     assign c = a ^ b;
 
 endmodule
