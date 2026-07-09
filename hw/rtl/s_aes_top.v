@@ -3,8 +3,7 @@ module s_aes_top (
     input wire b,
     output wire c
 );
-    // simple xor 
-    //test
+//testing my own personal branch
     assign c = a ^ b;
 
 endmodule
