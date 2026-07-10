@@ -13,4 +13,15 @@ module s_aes_top (
     wire [15:0] data_xor;
     assign data_xor = data_in ^ key;
 
+
+    wire sub_result[15:0]; // result of the first s-box
+    // by doing it nibble by nibble they each get their own line in the
+    // waveform
+    substitute sbox0 (.nib_in(data_xor[15:12]), .nib_out(sub_result[15:12]));
+    substitute sbox1 (.nib_in(data_xor[11: 8]), .nib_out(sub_result[11: 8]));
+    substitute sbox2 (.nib_in(data_xor[ 7: 4]), .nib_out(sub_result[ 7: 3]));
+    substitute sbox3 (.nib_in(data_xor[ 3: 0]), .nib_out(sub_result[ 3: 0]));
+
+
+
 endmodule
