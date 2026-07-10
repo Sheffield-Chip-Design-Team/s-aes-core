@@ -1,6 +1,6 @@
 module substitute (
-    input  wire [3:0] nib_in,
-    output reg  [3:0] nib_out
+    input  wire [3:0] nibble_in,
+    output reg  [3:0] nibble_out
 );
     always @(*) begin
         case (nibble_in)
