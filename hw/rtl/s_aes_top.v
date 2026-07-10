@@ -1,4 +1,5 @@
 `include "hw/rtl/substitute.v"
+`include "hw/rtl/shift_rows.v"
 
 module s_aes_top (
     input wire clk,            // clock pulse
@@ -23,5 +24,10 @@ module s_aes_top (
     substitute sbox1 (.nibble_in(data_xor[11: 8]), .nibble_out(sub_result[11: 8]));
     substitute sbox2 (.nibble_in(data_xor[ 7: 4]), .nibble_out(sub_result[ 7: 4]));
     substitute sbox3 (.nibble_in(data_xor[ 3: 0]), .nibble_out(sub_result[ 3: 0]));
+    
+
+    // shift rows
+    wire [15:0] shift_result;
+    shift_rows shift1 (.data_in(sub_result), .data_out(shift_result));
 
 endmodule
