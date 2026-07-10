@@ -9,4 +9,8 @@ module s_aes_top (
     output reg done, // high when data_out is valid
 );
 
+    // first AddRoundKey just uses plain key
+    wire [15:0] data_xor;
+    assign data_xor = data_in ^ key;
+
 endmodule
