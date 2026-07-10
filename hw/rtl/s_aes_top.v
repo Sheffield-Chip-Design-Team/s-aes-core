@@ -3,7 +3,7 @@ module s_aes_top (
     input wire b,
     output wire c
 );
-    // simple xor 
+    // hello
     assign c = a ^ b;
 
 endmodule
