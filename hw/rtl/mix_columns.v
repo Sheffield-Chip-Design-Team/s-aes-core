@@ -1,12 +1,11 @@
-`include "hw/rtl/gf_mult.v"
 module mix_columns(
   input  wire [15:0] data_in,
-  output reg [15:0] data_out
+  output wire [15:0] data_out
 );
     function automatic [3:0] gf_mult;
         input [3:0] in;
         begin
-            gf4_mul4 = {
+            gf_mult = {
                 in[1],
                 in[0],
                 in[3] ^ in[1],
