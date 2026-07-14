@@ -24,16 +24,22 @@ module s_aes_top (
     wire [15:0] shift1;
     wire [15:0] mix1;
     wire [15:0] round1;
-    substitute  substitute_1 (.data_in(data_xor), .data_out(sub1));
-    shift_rows  shift_1      (.data_in(sub1),     .data_out(shift1));
-    mix_columns mix_1        (.data_in(shift1),   .data_out(mix1));
+    substitute  substitute_11 (.data_in(data_xor[15:12]), .data_out(sub1[15:12]));
+    substitute  substitute_12 (.data_in(data_xor[11:08]), .data_out(sub1[11:08]));
+    substitute  substitute_13 (.data_in(data_xor[07:04]), .data_out(sub1[07:04]));
+    substitute  substitute_14 (.data_in(data_xor[03:00]), .data_out(sub1[03:00]));
+    shift_rows  shift_1       (.data_in(sub1),            .data_out(shift1));
+    mix_columns mix_1         (.data_in(shift1),          .data_out(mix1));
     assign round1 = mix1 ^ rk1;
 
     wire [15:0] sub2;
     wire [15:0] shift2;
     wire [15:0] round2;
-    substitute substitute_2 (.data_in(round1), .data_out(sub2));
-    shift_rows shift_2      (.data_in(sub2),   .data_out(shift2));
+    substitute substitute_21 (.data_in(round1[15:12]), .data_out(sub2[15:12]));
+    substitute substitute_22 (.data_in(round1[11:08]), .data_out(sub2[11:08]));
+    substitute substitute_23 (.data_in(round1[07:04]), .data_out(sub2[07:04]));
+    substitute substitute_24 (.data_in(round1[03:00]), .data_out(sub2[03:00]));
+    shift_rows shift_2       (.data_in(sub2),          .data_out(shift2));
     assign round2 = shift2 ^ rk2;
 
     always @(posedge clk or negedge rst_n) begin
