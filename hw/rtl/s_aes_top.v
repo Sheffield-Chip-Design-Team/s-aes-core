@@ -23,16 +23,16 @@ module s_aes_top (
     wire [15:0] shift1;
     wire [15:0] mix1;
     wire [15:0] round1;
-    substitute substitute_1 (.data_in(data_xor), .data_out(sub1));
-    shift_rows shift_1 (.data_in(sub1), .data_out(shift1));
-    mix_columns mix_1 (.data_in(shift1),.data_out(mix1));
+    substitute  substitute_1 (.data_in(data_xor), .data_out(sub1));
+    shift_rows  shift_1      (.data_in(sub1),     .data_out(shift1));
+    mix_columns mix_1        (.data_in(shift1),   .data_out(mix1));
     assign round1 = mix1 ^ rk1;
 
     wire [15:0] sub2;
     wire [15:0] shift2;
     wire [15:0] round2;
     substitute substitute_2 (.data_in(round1), .data_out(sub2));
-    shift_rows shift_2      (.data_in(sub2), .data_out(shift2));
+    shift_rows shift_2      (.data_in(sub2),   .data_out(shift2));
     assign round2 = shift2 ^ rk2;
 
     always @(posedge clk or negedge rst_n) begin
