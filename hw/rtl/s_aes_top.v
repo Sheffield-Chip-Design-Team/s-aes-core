@@ -35,8 +35,14 @@ module s_aes_top (
     shift_rows shift_2      (.data_in(sub2), .data_out(shift2));
     assign round2 = shift2 ^ rk2;
 
-    always @(posedge clk) begin
-        data_out = round2;
-        done = 1;
+    always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ciphertext <= 16'h0000;
+        done <= 1'b0;
+    end else if (start) begin
+        ciphertext <= round2;
+        done <= 1'b1;
+    end else begin
+        done <= 1'b0;
     end
 endmodule
