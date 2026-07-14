@@ -15,7 +15,7 @@ module s_aes_top (
     // TODO: all that's left is the poorly documented g function in expand_key
     wire [15:0] data_xor;
     wire [15:0] rk1, rk2;
-    assign data_xor = data_in ^ key;
+    assign data_xor = plaintext ^ key;
 
     expand_key round_key0 (.key_in(key), .key_out(rk1));
     expand_key round_key1 (.key_in(rk1), .key_out(rk2));
@@ -45,5 +45,6 @@ module s_aes_top (
         done <= 1'b1;
     end else begin
         done <= 1'b0;
+    end
     end
 endmodule
