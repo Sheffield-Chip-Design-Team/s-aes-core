@@ -12,6 +12,7 @@ module s_aes_top (
     output reg [15:0] ciphertext,
     output reg done // high when data_out is valid
 );
+    // TODO: all that's left is the poorly documented g function in expand_key
     wire [15:0] data_xor;
     wire [15:0] rk1, rk2;
     assign data_xor = data_in ^ key;
