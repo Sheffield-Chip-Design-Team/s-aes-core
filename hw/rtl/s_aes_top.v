@@ -17,8 +17,8 @@ module s_aes_top (
     wire [15:0] rk1, rk2;
     assign data_xor = plaintext ^ key;
 
-    expand_key round_key0 (.key_in(key), .key_out(rk1));
-    expand_key round_key1 (.key_in(rk1), .key_out(rk2));
+    expand_key round_key0 (.key_in(key), .round(1'b0), .key_out(rk1));
+    expand_key round_key1 (.key_in(rk1), .round(1'b1), .key_out(rk2));
 
     wire [15:0] sub1;
     wire [15:0] shift1;
