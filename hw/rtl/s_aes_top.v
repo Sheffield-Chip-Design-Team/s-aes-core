@@ -1,3 +1,3 @@
-module s_aes_top ();
+module top ();
     //empty
 endmodule
