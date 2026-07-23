@@ -1,4 +1,4 @@
-module counter (
+module add_round_key (
 
     input [15:0] data_in,
     input [15:0] key_in,
