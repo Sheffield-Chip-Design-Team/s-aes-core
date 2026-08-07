@@ -1,0 +1,39 @@
+module saes_key_expansion (
+    input  wire [15:0] key,
+    output wire [15:0] k0,
+    output wire [15:0] k1,
+    output wire [15:0] k2
+);
+    // S-Box substitution for 4-bit nibbles
+    function [3:0] sbox(input [3:0] nib);
+        case (nib)
+            4'h0: sbox = 4'h9; 4'h1: sbox = 4'h4; 4'h2: sbox = 4'hA; 4'h3: sbox = 4'hB;
+            4'h4: sbox = 4'hD; 4'h5: sbox = 4'h1; 4'h6: sbox = 4'h8; 4'h7: sbox = 4'hE;
+            4'h8: sbox = 4'h6; 4'h9: sbox = 4'h7; 4'hA: sbox = 4'h3; 4'hB: sbox = 4'h0;
+            4'hC: sbox = 4'hF; 4'hD: sbox = 4'hE; 4'hE: sbox = 4'h2; 4'hF: sbox = 4'h5;
+        endcase
+    endfunction
+
+    // Rotates 8-bit word nibbles and applies S-Box
+    function [7:0] sub_rot(input [7:0] w);
+        sub_rot = {sbox(w[3:0]), sbox(w[7:4])};
+    endfunction
+
+    wire [7:0] w0, w1, w2, w3, w4, w5;
+
+    // Split 16-bit original key
+    assign w0 = key[15:8];
+    assign w1 = key[7:0];
+
+    // Calculate words w2 through w5
+    assign w2 = w0 ^ 8'h80 ^ sub_rot(w1);
+    assign w3 = w2 ^ w1;
+    assign w4 = w2 ^ 8'h30 ^ sub_rot(w3);
+    assign w5 = w4 ^ w3;
+
+    // Concatenate into 16-bit round keys
+    assign k0 = {w0, w1};
+    assign k1 = {w2, w3};
+    assign k2 = {w4, w5};
+
+endmodule
