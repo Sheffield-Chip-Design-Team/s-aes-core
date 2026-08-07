@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module saes_key_expansion (
     input  wire [15:0] key,
     output wire [15:0] k0,
